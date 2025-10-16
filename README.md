@@ -9,7 +9,8 @@ responsive-profile-card
 ├── src
 │   ├── index.html       # HTML structure for the profile card
 │   ├── styles.css       # External CSS for styling
-│   └── script.js        # JavaScript for dynamic functionalities
+│   └── script.js       # JavaScript for dynamic functionalities
+|   └── pic.jpg 
 ├── README.md            # Documentation for the project
 └── .gitignore           # Files and directories to be ignored by Git
 ```
