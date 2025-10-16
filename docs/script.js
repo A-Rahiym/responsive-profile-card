@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => (timeElement.style.opacity = 1), 0);
     });
   }
-
   updateTime();
   setInterval(updateTime, 1000);
 });

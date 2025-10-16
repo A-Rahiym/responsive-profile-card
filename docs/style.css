@@ -254,7 +254,8 @@ footer {
 
   .profile-header {
     flex: 0 0 250px;
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
   }
 
   .profile-avatar {
