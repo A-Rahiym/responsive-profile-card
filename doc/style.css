@@ -168,13 +168,13 @@ footer {
     padding: 15px;
   }
 
-    .profile-header {
-        flex-direction: ROW;
-        align-items: center;
-        text-align: center;
-        justify-items: center;
-        gap: 10px;
-    }
+  /* ---------- Header ---------- */
+  .profile-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
 
   .profile-avatar {
     width: 140px;
@@ -182,7 +182,7 @@ footer {
   }
 
   .profile-name {
-    font-size: 1.0rem;
+    font-size: 1rem;
   }
 
   .profile-bio,
