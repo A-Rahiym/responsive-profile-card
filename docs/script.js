@@ -1,62 +1,194 @@
-document.addEventListener("DOMContentLoaded", () => {
-    // Profile Card Functionality
-    const timeElement = document.getElementById("current-time");
-    const avatar = document.querySelector('[data-testid="test-user-avatar"]');
-    const uploadInput = document.getElementById("avatar-upload");
+// Avatar upload functionality (from Stage 0)
+const avatarUpload = document.getElementById('avatar-upload');
+const profileAvatar = document.querySelector('.profile-avatar');
+const changeAvatarBtn = document.querySelector('.change-avatar');
 
-    // Only add event listener if uploadInput exists
-    if (uploadInput) {
-        uploadInput.addEventListener("change", (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                const url = URL.createObjectURL(file);
-                avatar.src = url;
-                avatar.alt = `Profile photo of ${file.name.split(".")[0]}`;
-            }
-        });
-    }
+if (avatarUpload && profileAvatar) {
+    avatarUpload.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                profileAvatar.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+}
 
+// Current time display (from Stage 0)
+const timeElement = document.getElementById('current-time');
+if (timeElement) {
     function updateTime() {
-        requestAnimationFrame(() => {
-            timeElement.textContent = Date.now();
-            timeElement.style.opacity = 0.5;
-            setTimeout(() => (timeElement.style.opacity = 1), 0);
-        });
+        timeElement.textContent = Date.now();
     }
     updateTime();
     setInterval(updateTime, 1000);
+}
 
-    // Contact Us Form Validation
-    const contactForm = document.getElementById("contact-form");
-    if (contactForm) {
-        contactForm.addEventListener("submit", (e) => {
-            e.preventDefault();
-            const fullName = document.querySelector('[data-testid="test-contact-name"]');
-            const email = document.querySelector('[data-testid="test-contact-email"]');
-            const subject = document.querySelector('[data-testid="test-contact-subject"]');
-            const message = document.querySelector('[data-testid="test-contact-message"]');
-            const errors = {};
+// Contact form validation (Stage 1)
+const contactForm = document.getElementById('contact-form');
 
-            // Reset error messages
-            document.querySelectorAll('.error').forEach(error => error.textContent = '');
+if (contactForm) {
+    const fullNameInput = document.querySelector('[data-testid="test-contact-name"]');
+    const emailInput = document.querySelector('[data-testid="test-contact-email"]');
+    const subjectInput = document.querySelector('[data-testid="test-contact-subject"]');
+    const messageInput = document.querySelector('[data-testid="test-contact-message"]');
+    const successMessage = document.querySelector('[data-testid="test-contact-success"]');
 
-            // Validation
-            if (!fullName.value.trim()) errors.name = "Full name is required.";
-            if (!email.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) errors.email = "Valid email is required.";
-            if (!subject.value.trim()) errors.subject = "Subject is required.";
-            if (!message.value.trim() || message.value.length < 10) errors.message = "Message must be at least 10 characters.";
+    const errorName = document.querySelector('[data-testid="test-contact-error-name"]');
+    const errorEmail = document.querySelector('[data-testid="test-contact-error-email"]');
+    const errorSubject = document.querySelector('[data-testid="test-contact-error-subject"]');
+    const errorMessage = document.querySelector('[data-testid="test-contact-error-message"]');
 
-            // Display errors
-            Object.keys(errors).forEach(key => {
-                const errorElement = document.getElementById(`error-${key}`);
-                if (errorElement) errorElement.textContent = errors[key];
-            });
-
-            if (Object.keys(errors).length === 0) {
-                document.getElementById("success-message").style.display = "block";
-                contactForm.reset();
-                setTimeout(() => document.getElementById("success-message").style.display = "none", 5000);
-            }
-        });
+    // Clear error messages
+    function clearError(errorElement) {
+        errorElement.textContent = '';
+        errorElement.style.display = 'none';
     }
-});
+
+    // Show error messages
+    function showError(errorElement, message) {
+        errorElement.textContent = message;
+        errorElement.style.display = 'block';
+    }
+
+    // Email validation regex
+    function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    // Validate individual fields
+    function validateField(input, errorElement, validationFn, errorMsg) {
+        clearError(errorElement);
+        if (!validationFn()) {
+            showError(errorElement, errorMsg);
+            return false;
+        }
+        return true;
+    }
+
+    // Real-time validation on blur
+    fullNameInput.addEventListener('blur', function() {
+        validateField(
+            fullNameInput,
+            errorName,
+            () => fullNameInput.value.trim() !== '',
+            'Full name is required.'
+        );
+    });
+
+    emailInput.addEventListener('blur', function() {
+        const value = emailInput.value.trim();
+        if (value === '') {
+            showError(errorEmail, 'Email is required.');
+        } else if (!isValidEmail(value)) {
+            showError(errorEmail, 'Please enter a valid email address.');
+        } else {
+            clearError(errorEmail);
+        }
+    });
+
+    subjectInput.addEventListener('blur', function() {
+        validateField(
+            subjectInput,
+            errorSubject,
+            () => subjectInput.value.trim() !== '',
+            'Subject is required.'
+        );
+    });
+
+    messageInput.addEventListener('blur', function() {
+        const value = messageInput.value.trim();
+        if (value === '') {
+            showError(errorMessage, 'Message is required.');
+        } else if (value.length < 10) {
+            showError(errorMessage, 'Message must be at least 10 characters long.');
+        } else {
+            clearError(errorMessage);
+        }
+    });
+
+    // Form submission
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Hide success message initially
+        successMessage.style.display = 'none';
+
+        // Clear all errors
+        clearError(errorName);
+        clearError(errorEmail);
+        clearError(errorSubject);
+        clearError(errorMessage);
+
+        let isValid = true;
+
+        // Validate full name
+        if (fullNameInput.value.trim() === '') {
+            showError(errorName, 'Full name is required.');
+            isValid = false;
+        }
+
+        // Validate email
+        const emailValue = emailInput.value.trim();
+        if (emailValue === '') {
+            showError(errorEmail, 'Email is required.');
+            isValid = false;
+        } else if (!isValidEmail(emailValue)) {
+            showError(errorEmail, 'Please enter a valid email address.');
+            isValid = false;
+        }
+
+        // Validate subject
+        if (subjectInput.value.trim() === '') {
+            showError(errorSubject, 'Subject is required.');
+            isValid = false;
+        }
+
+        // Validate message
+        const messageValue = messageInput.value.trim();
+        if (messageValue === '') {
+            showError(errorMessage, 'Message is required.');
+            isValid = false;
+        } else if (messageValue.length < 10) {
+            showError(errorMessage, 'Message must be at least 10 characters long.');
+            isValid = false;
+        }
+
+        // If all validations pass
+        if (isValid) {
+            // Show success message
+            successMessage.style.display = 'block';
+            
+            // Reset form
+            contactForm.reset();
+
+            // Scroll to success message
+            successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+            }, 5000);
+        } else {
+            // Focus on first error field
+            if (fullNameInput.value.trim() === '') {
+                fullNameInput.focus();
+            } else if (emailValue === '' || !isValidEmail(emailValue)) {
+                emailInput.focus();
+            } else if (subjectInput.value.trim() === '') {
+                subjectInput.focus();
+            } else if (messageValue === '' || messageValue.length < 10) {
+                messageInput.focus();
+            }
+        }
+    });
+
+    // Clear error when user starts typing
+    fullNameInput.addEventListener('input', () => clearError(errorName));
+    emailInput.addEventListener('input', () => clearError(errorEmail));
+    subjectInput.addEventListener('input', () => clearError(errorSubject));
+    messageInput.addEventListener('input', () => clearError(errorMessage));
+}
