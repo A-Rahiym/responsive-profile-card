@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <nav>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="about.html">About Me</a></li>
+        </ul>
+    </nav>
+    <main class="contact-container" data-testid="test-contact-page">
+        <section class="contact-form">
+            <h1>Contact Us</h1>
+            <form id="contact-form" novalidate>
+                <div class="form-group">
+                    <label for="full-name" data-testid="test-contact-name-label">Full Name:</label>
+                    <input type="text" id="full-name" name="full-name" aria-describedby="error-full-name" data-testid="test-contact-name" required />
+                    <span id="error-full-name" class="error" data-testid="test-contact-error-name" role="alert"></span>
+                </div>
+                <div class="form-group">
+                    <label for="email" data-testid="test-contact-email-label">Email:</label>
+                    <input type="email" id="email" name="email" aria-describedby="error-email" data-testid="test-contact-email" required />
+                    <span id="error-email" class="error" data-testid="test-contact-error-email" role="alert"></span>
+                </div>
+                <div class="form-group">
+                    <label for="subject" data-testid="test-contact-subject-label">Subject:</label>
+                    <input type="text" id="subject" name="subject" aria-describedby="error-subject" data-testid="test-contact-subject" required />
+                    <span id="error-subject" class="error" data-testid="test-contact-error-subject" role="alert"></span>
+                </div>
+                <div class="form-group">
+                    <label for="message" data-testid="test-contact-message-label">Message:</label>
+                    <textarea id="message" name="message" aria-describedby="error-message" data-testid="test-contact-message" required></textarea>
+                    <span id="error-message" class="error" data-testid="test-contact-error-message" role="alert"></span>
+                </div>
+                <button type="submit" data-testid="test-contact-submit">Send Message</button>
+                <p id="success-message" class="success" data-testid="test-contact-success" style="display: none;">Thank you! Your message has been sent.</p>
+            </form>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,123 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Responsive Profile Card</title>
-
-    <!-- Font Awesome for icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    />
-
-    <!-- Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <link rel="stylesheet" href="style.css" />
-  </head>
-
-  <body>
+</head>
+<body>
+    <nav>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="about.html">About Me</a></li>
+        </ul>
+    </nav>
     <article class="profile-card" data-testid="test-profile-card">
-      <header class="profile-header">
-        <figure>
-          <h2 class="profile-name" data-testid="test-user-name">
-            Aisha Muhammad
-          </h2>
-          <img
-            src="./pic.jpg"
-            alt="Profile photo of Aisha Muhammad"
-            class="profile-avatar"
-            data-testid="test-user-avatar"
-          />
-          <input
-            type="file"
-            id="avatar-upload"
-            accept="image/*"
-            style="display: none"
-            data-testid="test-avatar-upload"
-          />
-          <figcaption data-testid="test-user-caption">Profile photo and details of Aisha Muhammad</figcaption>
-        </figure>
-        <label for="avatar-upload" class="change-avatar">Change Avatar</label>
-      </header>
-
-      <div class="profile-content">
-        <p class="profile-bio" data-testid="test-user-bio">
-          A passionate Computer Engineering student at Ahmadu Bello University
-          in Zaria, northern Nigeria. Inspired by the vibrant Durbar festival,
-          she explores technopreneurship, e-commerce, and cybersecurity to solve
-          local challenges like market digitization. Enjoys coding by the Kaduna
-          River and dreaming of tech hubs in the Sahel.
-        </p>
-
-        <p class="profile-time" data-testid="test-user-time">
-          Current time: <span id="current-time"></span> ms
-        </p>
-
-        <nav data-testid="test-user-social-links">
-          <ul class="social-links">
-            <li>
-              <a
-                href="https://youtube.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                data-testid="test-user-social-youtube"
-                aria-label="YouTube"
-                ><i class="fab fa-youtube"></i
-              ></a>
-            </li>
-            <li>
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                data-testid="test-user-social-instagram"
-                aria-label="Instagram"
-                ><i class="fab fa-instagram"></i
-              ></a>
-            </li>
-            <li>
-              <a
-                href="https://tiktok.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                data-testid="test-user-social-tiktok"
-                aria-label="TikTok"
-                ><i class="fab fa-tiktok"></i
-              ></a>
-            </li>
-          </ul>
-        </nav>
-
-        <div class="details-grid">
-          <section class="hobbies-section">
-            <h3>Hobbies</h3>
-            <ul class="hobbies-list" data-testid="test-user-hobbies">
-              <li>Coding and building web apps</li>
-              <li>Reading about entrepreneurship and innovation</li>
-              <li>Exploring local markets and culture in Zaria</li>
-            </ul>
-          </section>
-
-          <section class="dislikes-section">
-            <h3>Dislikes</h3>
-            <ul class="dislikes-list" data-testid="test-user-dislikes">
-              <li>Unreliable internet connections</li>
-              <li>Debugging stubborn code bugs</li>
-              <li>Traffic in busy Nigerian cities</li>
-            </ul>
-          </section>
+        <header class="profile-header">
+            <figure>
+                <h2 class="profile-name" data-testid="test-user-name">Aisha Muhammad</h2>
+                <img src="./pic.jpg" alt="Profile photo of Aisha Muhammad" class="profile-avatar" data-testid="test-user-avatar" />
+                <input type="file" id="avatar-upload" accept="image/*" style="display: none" data-testid="test-avatar-upload" />
+                <figcaption data-testid="test-user-caption">Profile photo and details of Aisha Muhammad</figcaption>
+            </figure>
+            <label for="avatar-upload" class="change-avatar">Change Avatar</label>
+        </header>
+        <div class="profile-content">
+            <p class="profile-bio" data-testid="test-user-bio">
+                A passionate Computer Engineering student at Ahmadu Bello University in Zaria, northern Nigeria. Inspired by the vibrant Durbar festival, she explores technopreneurship, e-commerce, and cybersecurity to solve local challenges like market digitization. Enjoys coding by the Kaduna River and dreaming of tech hubs in the Sahel.
+            </p>
+            <p class="profile-time" data-testid="test-user-time">Current time: <span id="current-time"></span> ms</p>
+            <nav data-testid="test-user-social-links">
+                <ul class="social-links">
+                    <li><a href="https://youtube.com" target="_blank" rel="noopener noreferrer" data-testid="test-user-social-youtube" aria-label="YouTube"><i class="fab fa-youtube"></i></a></li>
+                    <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" data-testid="test-user-social-instagram" aria-label="Instagram"><i class="fab fa-instagram"></i></a></li>
+                    <li><a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" data-testid="test-user-social-tiktok" aria-label="TikTok"><i class="fab fa-tiktok"></i></a></li>
+                </ul>
+            </nav>
+            <div class="details-grid">
+                <section class="hobbies-section">
+                    <h3>Hobbies</h3>
+                    <ul class="hobbies-list" data-testid="test-user-hobbies">
+                        <li>Coding and building web apps</li>
+                        <li>Reading about entrepreneurship and innovation</li>
+                        <li>Exploring local markets and culture in Zaria</li>
+                    </ul>
+                </section>
+                <section class="dislikes-section">
+                    <h3>Dislikes</h3>
+                    <ul class="dislikes-list" data-testid="test-user-dislikes">
+                        <li>Unreliable internet connections</li>
+                        <li>Debugging stubborn code bugs</li>
+                        <li>Traffic in busy Nigerian cities</li>
+                    </ul>
+                </section>
+            </div>
+            <footer data-testid="test-user-signature">
+                <p>"Innovation begins where tradition meets technology. – Aisha Muhammad"</p>
+            </footer>
         </div>
-
-        <footer data-testid="test-user-signature">
-          <p>
-            "Innovation begins where tradition meets technology.  Aisha
-            Muhammad"
-          </p>
-        </footer>
-      </div>
     </article>
-
-    <!-- Custom JS -->
     <script src="script.js"></script>
-  </body>
+</body>
 </html>
